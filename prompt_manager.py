@@ -55,7 +55,14 @@ Google Sheets의 새로운 행에 자동으로 기록합니다.""",
         "favorite": False
     }
 ]
-
+categories = [
+    "텍스트 생성",
+    "이미지 생성",
+    "영상 생성",
+    "페르소나",
+    "자동화",
+    "기타"
+]
 def show_menu():
     print("\n=== 나만의 프롬프트 관리 ===")
     print("1. 프롬프트 추가")
@@ -67,6 +74,61 @@ def show_menu():
     print("7. 즐겨찾기 목록")
     print("0. 종료")
 
+def get_non_empty_input(message):
+    while True:
+        value = input(message).strip()
+
+        if value:
+            return value
+
+        print("입력값을 비워둘 수 없습니다. 다시 입력해주세요.")
+
+
+def choose_category():
+    while True:
+        print("\n카테고리 선택:")
+
+        for number, category in enumerate(categories, start=1):
+            print(f"{number}) {category}")
+
+        choice = input("선택: ").strip()
+
+        if choice.isdigit():
+            category_number = int(choice)
+
+            if 1 <= category_number <= len(categories):
+                selected_category = categories[category_number - 1]
+
+                if selected_category == "기타":
+                    custom_category = input(
+                        "직접 사용할 카테고리를 입력하세요: "
+                    ).strip()
+
+                    if custom_category:
+                        return custom_category
+
+                return selected_category
+
+        print("올바른 카테고리 번호를 입력해주세요.")
+
+
+def add_prompt():
+    print("\n=== 프롬프트 추가 ===")
+
+    title = get_non_empty_input("제목: ")
+    content = get_non_empty_input("내용: ")
+    category = choose_category()
+
+    new_prompt = {
+        "title": title,
+        "content": content,
+        "category": category,
+        "favorite": False
+    }
+
+    prompts.append(new_prompt)
+
+    print(f"\n'{title}' 프롬프트가 추가되었습니다!")
 
 def main():
     print(f"기본 프롬프트 {len(prompts)}개를 불러왔습니다.")
@@ -78,7 +140,9 @@ def main():
         if choice == "0":
             print("프로그램을 종료합니다.")
             break
-        elif choice in ["1", "2", "3", "4", "5", "6", "7"]:
+        elif choice == "1":
+            add_prompt()
+        elif choice in ["2", "3", "4", "5", "6", "7"]:
             print("해당 기능은 아직 준비 중입니다.")
         else:
             print("잘못된 번호입니다. 다시 선택해주세요.")
