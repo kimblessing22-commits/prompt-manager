@@ -145,7 +145,43 @@ def show_list():
         )
 
     print(f"\n총 {len(prompts)}개의 프롬프트")
-    
+def show_by_category():
+    print("\n=== 카테고리별 조회 ===")
+
+    available_categories = []
+
+    for prompt in prompts:
+        if prompt["category"] not in available_categories:
+            available_categories.append(prompt["category"])
+
+    for number, category in enumerate(available_categories, start=1):
+        print(f"{number}) {category}")
+
+    choice = input("조회할 카테고리 번호: ").strip()
+
+    if not choice.isdigit():
+        print("올바른 번호를 입력해주세요.")
+        return
+
+    category_number = int(choice)
+
+    if not 1 <= category_number <= len(available_categories):
+        print("올바른 번호를 입력해주세요.")
+        return
+
+    selected_category = available_categories[category_number - 1]
+
+    print(f"\n=== {selected_category} 프롬프트 ===")
+
+    count = 0
+
+    for prompt in prompts:
+        if prompt["category"] == selected_category:
+            count += 1
+            favorite_mark = " ⭐" if prompt["favorite"] else ""
+            print(f'{count}. {prompt["title"]}{favorite_mark}')
+
+    print(f"\n총 {count}개의 프롬프트")    
 def main():
     print(f"기본 프롬프트 {len(prompts)}개를 불러왔습니다.")
 
@@ -160,7 +196,9 @@ def main():
             add_prompt()
         elif choice == "2":
             show_list()
-        elif choice in ["2", "3", "4", "5", "6", "7"]:
+        elif choice == "3":
+            show_by_category()
+        elif choice in ["4", "5", "6", "7"]:
             print("해당 기능은 아직 준비 중입니다.")
         else:
             print("잘못된 번호입니다. 다시 선택해주세요.")
