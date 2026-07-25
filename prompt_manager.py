@@ -68,5 +68,20 @@ def show_menu():
     print("0. 종료")
 
 
-print(f"기본 프롬프트 {len(prompts)}개를 불러왔습니다.")
-show_menu()
+def main():
+    print(f"기본 프롬프트 {len(prompts)}개를 불러왔습니다.")
+
+    while True:
+        show_menu()
+        choice = input("선택: ")
+
+        if choice == "0":
+            print("프로그램을 종료합니다.")
+            break
+        elif choice in ["1", "2", "3", "4", "5", "6", "7"]:
+            print("해당 기능은 아직 준비 중입니다.")
+        else:
+            print("잘못된 번호입니다. 다시 선택해주세요.")
+
+
+main()
