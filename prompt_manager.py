@@ -182,6 +182,39 @@ def show_by_category():
             print(f'{count}. {prompt["title"]}{favorite_mark}')
 
     print(f"\n총 {count}개의 프롬프트")    
+def search_prompts():
+    print("\n=== 프롬프트 검색 ===")
+
+    keyword = input("검색어를 입력하세요: ").strip()
+
+    if not keyword:
+        print("검색어를 입력해주세요.")
+        return
+
+    results = []
+
+    for prompt in prompts:
+        if (
+            keyword.lower() in prompt["title"].lower()
+            or keyword.lower() in prompt["content"].lower()
+        ):
+            results.append(prompt)
+
+    if not results:
+        print(f"'{keyword}'에 해당하는 프롬프트가 없습니다.")
+        return
+
+    print(f"\n=== '{keyword}' 검색 결과 ===")
+
+    for number, prompt in enumerate(results, start=1):
+        favorite_mark = " ⭐" if prompt["favorite"] else ""
+
+        print(
+            f'{number}. [{prompt["category"]}] '
+            f'{prompt["title"]}{favorite_mark}'
+        )
+
+    print(f"\n총 {len(results)}개의 프롬프트")
 def main():
     print(f"기본 프롬프트 {len(prompts)}개를 불러왔습니다.")
 
@@ -198,7 +231,11 @@ def main():
             show_list()
         elif choice == "3":
             show_by_category()
-        elif choice in ["4", "5", "6", "7"]:
+        elif choice == "3":
+            show_by_category()
+        elif choice == "4":
+            search_prompts()
+        elif choice in ["5", "6", "7"]:
             print("해당 기능은 아직 준비 중입니다.")
         else:
             print("잘못된 번호입니다. 다시 선택해주세요.")
