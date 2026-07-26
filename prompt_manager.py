@@ -246,6 +246,36 @@ def show_prompt_detail():
     print(f'즐겨찾기: {favorite_text}')
     print("내용:")
     print(selected_prompt["content"])
+def manage_favorite():
+    print("\n=== 즐겨찾기 관리 ===")
+
+    if not prompts:
+        print("저장된 프롬프트가 없습니다.")
+        return
+
+    for number, prompt in enumerate(prompts, start=1):
+        favorite_mark = "⭐" if prompt["favorite"] else "☆"
+        print(f'{number}. {favorite_mark} {prompt["title"]}')
+
+    choice = input("변경할 프롬프트 번호: ").strip()
+
+    if not choice.isdigit():
+        print("올바른 번호를 입력해주세요.")
+        return
+
+    prompt_number = int(choice)
+
+    if not 1 <= prompt_number <= len(prompts):
+        print("올바른 번호를 입력해주세요.")
+        return
+
+    selected_prompt = prompts[prompt_number - 1]
+    selected_prompt["favorite"] = not selected_prompt["favorite"]
+
+    if selected_prompt["favorite"]:
+        print(f'\'{selected_prompt["title"]}\'을 즐겨찾기에 추가했습니다.')
+    else:
+        print(f'\'{selected_prompt["title"]}\'을 즐겨찾기에서 해제했습니다.')
 def main():
     print(f"기본 프롬프트 {len(prompts)}개를 불러왔습니다.")
 
@@ -268,7 +298,9 @@ def main():
             search_prompts()
         elif choice == "5":
             show_prompt_detail()
-        elif choice in ["6", "7"]:
+        elif choice == "6":
+            manage_favorite()
+        elif choice == "7":
             print("해당 기능은 아직 준비 중입니다.")
         else:
             print("잘못된 번호입니다. 다시 선택해주세요.")
