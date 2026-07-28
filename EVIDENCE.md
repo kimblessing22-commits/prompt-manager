@@ -113,3 +113,8 @@ git log --oneline --graph --all --decorate
 ```
 
 이를 통해 기존 프롬프트와 새 프롬프트 사이의 제목 충돌을 방지합니다.
+## 7. GitHub 저장소 복제 실행 화면
+
+다음은 `git clone` 명령으로 원격 저장소를 복제한 실제 터미널 실행 화면입니다.
+
+![git clone 실행 결과](clone 성공화면.png)
