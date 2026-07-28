@@ -27,3 +27,21 @@ Python으로 제작한 콘솔 기반 프롬프트 관리 프로그램입니다.
 
 ```bash
 git clone https://github.com/kimblessing22-commits/prompt-manager.git
+```
+## 요구 환경 및 버전 확인
+
+- Python 3.10 이상
+- Git
+- 별도의 외부 Python 패키지는 사용하지 않습니다.
+
+설치된 Python 버전은 다음 명령어로 확인할 수 있습니다.
+
+```bash
+python --version
+```
+Git 버전과 사용자 설정은 다음 명령어로 확인할 수 있습니다.
+```bash
+git --version
+git config user.name
+git config user.email
+```
