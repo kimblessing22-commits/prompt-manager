@@ -45,3 +45,6 @@ git --version
 git config user.name
 git config user.email
 ```
+## 제출 증빙
+
+Git 버전, 사용자 설정, 저장소 복제, 브랜치 생성·병합 및 기능별 커밋 기록은 [EVIDENCE.md](EVIDENCE.md)에서 확인할 수 있습니다.
