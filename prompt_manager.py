@@ -72,6 +72,7 @@ def show_menu():
     print("5. 프롬프트 상세 보기")
     print("6. 즐겨찾기 관리")
     print("7. 즐겨찾기 목록")
+    print("8. 프롬프트 카테고리 수정")
     print("0. 종료")
 
 def get_non_empty_input(message):
@@ -301,6 +302,47 @@ def show_favorites():
         )
 
     print(f"\n총 {len(favorite_prompts)}개의 즐겨찾기")
+def edit_prompt_category():
+    print("\n=== 프롬프트 카테고리 수정 ===")
+
+    if not prompts:
+        print("저장된 프롬프트가 없습니다.")
+        return
+
+    for number, prompt in enumerate(prompts, start=1):
+        print(
+            f'{number}. [{prompt["category"]}] '
+            f'{prompt["title"]}'
+        )
+
+    choice = input("수정할 프롬프트 번호: ").strip()
+
+    if not choice.isdigit():
+        print("올바른 번호를 입력해주세요.")
+        return
+
+    prompt_number = int(choice)
+
+    if not 1 <= prompt_number <= len(prompts):
+        print("올바른 번호를 입력해주세요.")
+        return
+
+    selected_prompt = prompts[prompt_number - 1]
+    old_category = selected_prompt["category"]
+
+    print(f"\n현재 카테고리: {old_category}")
+    new_category = choose_category()
+
+    if new_category == old_category:
+        print("선택한 카테고리가 현재 카테고리와 같습니다.")
+        return
+
+    selected_prompt["category"] = new_category
+
+    print(
+        f'\n\'{selected_prompt["title"]}\'의 카테고리를 '
+        f'\'{old_category}\'에서 \'{new_category}\'로 변경했습니다.'
+    )
 def main():
     print(f"기본 프롬프트 {len(prompts)}개를 불러왔습니다.")
 
@@ -327,6 +369,8 @@ def main():
             manage_favorite()
         elif choice == "7":
             show_favorites()
+        elif choice == "8":
+            edit_prompt_category()
         else:
             print("잘못된 번호입니다. 다시 선택해주세요.")
 
