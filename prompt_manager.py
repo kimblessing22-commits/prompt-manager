@@ -114,8 +114,14 @@ def choose_category():
 
 def add_prompt():
     print("\n=== 프롬프트 추가 ===")
-
+    
     title = get_non_empty_input("제목: ")
+
+    for prompt in prompts:
+        if prompt["title"].lower() == title.lower():
+            print("같은 제목의 프롬프트가 이미 존재합니다.")
+            return
+
     content = get_non_empty_input("내용: ")
     category = choose_category()
 
@@ -125,7 +131,6 @@ def add_prompt():
         "category": category,
         "favorite": False
     }
-
     prompts.append(new_prompt)
 
     print(f"\n'{title}' 프롬프트가 추가되었습니다!")
